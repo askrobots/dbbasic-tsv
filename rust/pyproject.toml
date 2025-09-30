@@ -1,0 +1,13 @@
+[build-system]
+requires = ["maturin>=1.0,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "dbbasic-rust"
+version = "0.1.0"
+description = "Rust acceleration for dbbasic-tsv"
+requires-python = ">=3.7"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+module-name = "dbbasic_rust"

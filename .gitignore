@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Database files (for testing)
+data/
+*.tsv
+*.idx
+*.meta
+*.lock
+*.tx_backup
+test_data/
+tubekit_data/
+
+# Rust
+target/
+Cargo.lock
+**/*.rs.bk
+
+# Documentation
+docs/_build/
+site/
+
+# Local development
+.env
+*.local
+scratch/
+temp/
+
+# OS
+Thumbs.db

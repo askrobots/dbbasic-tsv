@@ -1,0 +1,19 @@
+[package]
+name = "dbbasic_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "dbbasic_rust"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = "0.20.0"
+rayon = "1.8"
+ahash = "0.8"
+memchr = "2.7"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
