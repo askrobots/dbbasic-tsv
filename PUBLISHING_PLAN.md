@@ -74,7 +74,11 @@
 - ✅ Published v1.0.0 to PyPI (https://pypi.org/project/dbbasic-tsv/)
 - ✅ Fixed author attribution: TubeKit → AskRobots
 - ✅ Published v1.0.1 to PyPI with corrected branding
-- ⚠️ Accidentally committed sensitive files (rackbarn/, notes) to GitHub
+- ⚠️ Accidentally committed sensitive files (rackbarn/, notes) to GitHub in commit b09981b
 - ✅ Moved sensitive files to /Users/danq/tubekit/notes-archive/
-- ✅ Reset git history and preparing force push to clean GitHub repo
+- ✅ Reset git history to commit 59b8bd3
+- ✅ Re-committed v1.0.1 changes properly (commit eaea3ef)
+- ✅ Force pushed to GitHub to remove bad commit
+- ✅ Verified GitHub repository is clean - no sensitive files present
 - ✅ **Phase 3 Launch Started** - Package now installable via `pip install dbbasic-tsv`
+- Next: Marketing, blog post, community submissions
