@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dbbasic-tsv"
-version = "1.0.0"
+version = "1.0.1"
 description = "A pure-Python, filesystem-based database using TSV files"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "MIT"}
 authors = [
-    {name = "TubeKit Contributors"}
+    {name = "AskRobots Contributors"}
 ]
 keywords = ["database", "tsv", "filesystem", "nosql", "embedded", "portable"]
 classifiers = [
@@ -29,10 +29,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/dbbasic-tsv"
-Documentation = "https://github.com/yourusername/dbbasic-tsv#readme"
-Repository = "https://github.com/yourusername/dbbasic-tsv"
-Issues = "https://github.com/yourusername/dbbasic-tsv/issues"
+Homepage = "https://github.com/askrobots/dbbasic-tsv"
+Documentation = "https://github.com/askrobots/dbbasic-tsv#readme"
+Repository = "https://github.com/askrobots/dbbasic-tsv"
+Issues = "https://github.com/askrobots/dbbasic-tsv/issues"
 
 [project.optional-dependencies]
 dev = [

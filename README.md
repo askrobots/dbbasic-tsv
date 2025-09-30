@@ -198,7 +198,7 @@ SQLite (Baseline):
 
 ## Real-World Usage
 
-This database powers TubeKit, our open-source video platform that handles:
+This database powers AskRobots video platform that handles:
 - Millions of video records
 - Real-time analytics updates
 - Concurrent video transcoding jobs
@@ -293,7 +293,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## Credits
 
-Created by the TubeKit team while building a video platform and discovering we didn't need "real" databases.
+Created by the AskRobots team while building a video platform and discovering we didn't need "real" databases.
 
 Inspired by:
 - Google BigTable's architecture

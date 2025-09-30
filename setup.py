@@ -12,8 +12,8 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="dbbasic-tsv",
-    version="1.0.0",
-    author="TubeKit Contributors",
+    version="1.0.1",
+    author="AskRobots Contributors",
     description="A pure-Python, filesystem-based database using TSV files",
     long_description=long_description,
     long_description_content_type="text/markdown",

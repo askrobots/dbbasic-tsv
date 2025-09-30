@@ -27,7 +27,7 @@
 
 - [ ] Write launch blog post for quellhorst.com
 - [ ] Create demo GIF showing grep/edit workflow
-- [ ] Publish to PyPI (`python3 -m twine upload dist/*`)
+- [x] Publish to PyPI ✅ (Sept 29, 11:35 PM) - https://pypi.org/project/dbbasic-tsv/
 - [ ] Submit to Show HN / Reddit
 - [ ] Tweet about it
 - [ ] Add to awesome-python / awesome-databases lists
@@ -69,4 +69,12 @@
 - ✅ Committed all dbbasic-tsv files (26 files, 4909 lines)
 - ✅ Pushed to https://github.com/askrobots/dbbasic-tsv
 - ✅ **Phase 1 COMPLETE** - Ready for public use
-- Next: Phase 2 polish (docstrings, coverage) or Phase 3 launch
+
+### September 29, 2025 11:40 PM CST
+- ✅ Published v1.0.0 to PyPI (https://pypi.org/project/dbbasic-tsv/)
+- ✅ Fixed author attribution: TubeKit → AskRobots
+- ✅ Published v1.0.1 to PyPI with corrected branding
+- ⚠️ Accidentally committed sensitive files (rackbarn/, notes) to GitHub
+- ✅ Moved sensitive files to /Users/danq/tubekit/notes-archive/
+- ✅ Reset git history and preparing force push to clean GitHub repo
+- ✅ **Phase 3 Launch Started** - Package now installable via `pip install dbbasic-tsv`
