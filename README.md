@@ -158,6 +158,15 @@ users.compact()  # Happens automatically after many deletes
 4. **Transactions**: PID-based locking with rollback journal
 5. **Rust Acceleration**: Hot paths (parsing, serialization) in Rust
 
+### Git as Database Infrastructure
+
+dbbasic-tsv treats Git as database infrastructure:
+- **Version Control**: Full history via `git log`
+- **Replication**: Deploy with `git push`
+- **Backup**: Clone with `git clone`
+- **Rollback**: Revert with `git revert`
+- **Branching**: Test environments with `git branch`
+
 ### BigTable-Inspired Design
 
 Like Google's BigTable, we use:
@@ -207,20 +216,50 @@ This database powers AskRobots video platform that handles:
 
 ## When to Use This
 
-✅ **Perfect for:**
-- Prototypes and MVPs (zero setup)
-- Microservices (no dependencies)
-- Config and settings storage
-- Audit logs (human-readable)
-- Data that needs version control
-- Educational projects
-- Embedded systems
+### Perfect for "One-Way" Data Flow
 
-❌ **Not ideal for:**
-- Complex JOIN operations
-- Massive datasets (>10GB)
-- High-frequency trading
-- Geospatial queries
+dbbasic-tsv excels when data flows **Development → Production** via Git:
+
+✅ **Ideal use cases:**
+- **Content management**: Blog posts, documentation, marketing pages
+- **Product catalogs**: Descriptions, specs (not real-time inventory)
+- **Configuration**: App settings, feature flags
+- **Static data**: Reference tables, lookup data
+- **Docker containers**: Ephemeral containers without persistent volumes
+- **Git-based deployment**: Your `git push` IS your database update
+- **Prototypes and MVPs**: Zero setup, instant start
+- **Audit logs**: Human-readable history built-in
+
+Why it works: **Version control IS your database replication strategy.**
+
+### Not Suitable for Transactional Data
+
+❌ **Don't use for bidirectional data flow:**
+- **E-commerce transactions**: Orders, payments, shopping carts
+- **User-generated content**: Comments, reviews, forum posts
+- **Real-time inventory**: Stock levels that change constantly
+- **High write concurrency**: Thousands of simultaneous writes
+- **ACID requirements**: Where consistency is critical
+
+**Rule of thumb**: If you can safely `git revert` the data without breaking user transactions, use dbbasic-tsv. Otherwise, use PostgreSQL.
+
+### The Hybrid Architecture (Best Practice)
+
+Most applications need **both**:
+
+```python
+# Content: Git + TSV (zero ops complexity)
+from dbbasic.tsv import TSV
+articles = TSV("articles")      # Blog posts
+products = TSV("product_info")  # Product descriptions
+
+# Transactions: PostgreSQL (where ACID matters)
+import psycopg2
+orders = psycopg2.connect(...)  # E-commerce orders
+comments = psycopg2.connect(...)  # User comments
+```
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed discussion of use cases and deployment patterns.
 
 ## Philosophy
 
