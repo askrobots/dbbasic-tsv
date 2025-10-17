@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database - dbbasic-tsv</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --text: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        h1 { font-size: 1.875rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .breadcrumb { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+
+        /* Tables Grid */
+        .db-tables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .db-table-card {
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .db-table-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .db-table-icon { font-size: 1.5rem; }
+
+        .db-table-info { flex: 1; }
+        .db-table-info h3 { margin: 0; font-size: 1rem; }
+        .db-table-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+        .db-table-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .column-tag {
+            padding: 0.25rem 0.5rem;
+            background: var(--bg);
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+        }
+
+        .db-table-actions { display: flex; gap: 0.5rem; }
+
+        /* Query Builder */
+        .query-builder {
+            background: var(--bg);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.625rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover { background: var(--primary-dark); }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-secondary-small {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Query Preview */
+        .query-preview {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .query-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .query-preview pre {
+            margin: 0;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        /* Results */
+        .query-results {
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .table-container { overflow-x: auto; }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 1rem 0.75rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Storage */
+        .storage-bar {
+            height: 1.5rem;
+            background: var(--bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .storage-fill {
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .storage-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .storage-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .storage-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Database</h1>
+        <div class="breadcrumb">dbbasic-tsv / Database</div>
+
+        <!-- Tables Overview -->
+        <div class="card">
+            <h2>Tables</h2>
+            <div class="db-tables-grid" id="tables-grid">
+                <p>Loading tables...</p>
+            </div>
+        </div>
+
+        <!-- Query Interface -->
+        <div class="card">
+            <h2>Query Data</h2>
+            <div class="query-builder">
+                <div class="query-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Table</label>
+                            <select class="form-select" id="query-table">
+                                <option value="">Select table...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Columns</label>
+                            <input type="text" class="form-input" id="query-columns" placeholder="* (all)" value="*">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Where</label>
+                            <input type="text" class="form-input" id="query-where" placeholder="e.g., id=123">
+                        </div>
+                        <div class="form-group">
+                            <label>Limit</label>
+                            <input type="number" class="form-input" id="query-limit" value="10">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-secondary" onclick="clearQuery()">Clear</button>
+                        <button class="btn-primary" onclick="runQuery()">Run Query</button>
+                    </div>
+                </div>
+
+                <div class="query-preview">
+                    <div class="query-preview-header">
+                        <span>Python:</span>
+                    </div>
+                    <pre><code id="query-code">table.query()</code></pre>
+                </div>
+            </div>
+
+            <div class="query-results" id="query-results" style="display: none;">
+                <div class="results-header">
+                    <span id="results-count">Results (0 rows)</span>
+                    <button class="btn-secondary-small">Export CSV</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table" id="results-table">
+                        <thead><tr></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Storage Stats -->
+        <div class="card">
+            <h2>Storage</h2>
+            <div id="storage-stats">
+                <p>Loading storage stats...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load tables on page load
+        async function loadTables() {
+            try {
+                const res = await fetch('/admin/api/tables');
+                const tables = await res.json();
+
+                const grid = document.getElementById('tables-grid');
+                const select = document.getElementById('query-table');
+
+                if (tables.length === 0) {
+                    grid.innerHTML = '<p>No tables found in data/ directory</p>';
+                    return;
+                }
+
+                grid.innerHTML = tables.map(t => `
+                    <div class="db-table-card">
+                        <div class="db-table-header">
+                            <div class="db-table-icon">📊</div>
+                            <div class="db-table-info">
+                                <h3>${t.name}.tsv</h3>
+                                <div class="db-table-meta">${t.rows} rows • ${t.size}</div>
+                            </div>
+                        </div>
+                        <div class="db-table-columns">
+                            ${t.columns.slice(0, 4).map(c => `<div class="column-tag">${c}</div>`).join('')}
+                            ${t.columns.length > 4 ? `<div class="column-tag">+${t.columns.length - 4} more</div>` : ''}
+                        </div>
+                        <div class="db-table-actions">
+                            <a href="#" class="btn-secondary-small" onclick="viewTable('${t.name}'); return false;">View Data</a>
+                        </div>
+                    </div>
+                `).join('');
+
+                select.innerHTML = '<option value="">Select table...</option>' +
+                    tables.map(t => `<option value="${t.name}">${t.name}</option>`).join('');
+            } catch (e) {
+                console.error('Failed to load tables:', e);
+            }
+        }
+
+        // Load storage stats
+        async function loadStorage() {
+            try {
+                const res = await fetch('/admin/api/storage');
+                const stats = await res.json();
+
+                const container = document.getElementById('storage-stats');
+                const usedPct = (stats.used_mb / stats.total_mb * 100).toFixed(1);
+
+                container.innerHTML = `
+                    <div class="storage-bar">
+                        <div class="storage-fill" style="width: ${usedPct}%"></div>
+                    </div>
+                    <div class="storage-info">
+                        <span>${stats.used_mb} MB used of ${stats.total_mb} MB</span>
+                        <span>${(100 - usedPct).toFixed(1)}% free</span>
+                    </div>
+                    <div class="storage-breakdown">
+                        ${stats.tables.map(t => `
+                            <div class="storage-item">
+                                <span>📊 ${t.name}</span>
+                                <span>${t.size}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } catch (e) {
+                console.error('Failed to load storage:', e);
+            }
+        }
+
+        // Update query preview
+        function updateQueryPreview() {
+            const table = document.getElementById('query-table').value;
+            const columns = document.getElementById('query-columns').value || '*';
+            const where = document.getElementById('query-where').value;
+            const limit = document.getElementById('query-limit').value;
+
+            let code = `${table}.query(`;
+            if (where) {
+                const [key, val] = where.split('=').map(s => s.trim());
+                code += `${key}="${val}"`;
+            }
+            code += `)`;
+            if (limit) code += `.limit(${limit})`;
+
+            document.getElementById('query-code').textContent = code;
+        }
+
+        // Run query
+        async function runQuery() {
+            const table = document.getElementById('query-table').value;
+            if (!table) {
+                alert('Select a table first');
+                return;
+            }
+
+            const where = document.getElementById('query-where').value;
+            const limit = document.getElementById('query-limit').value;
+
+            try {
+                const params = new URLSearchParams({ table, limit });
+                if (where) params.set('where', where);
+
+                const res = await fetch(`/admin/api/query?${params}`);
+                const data = await res.json();
+
+                displayResults(data);
+            } catch (e) {
+                console.error('Query failed:', e);
+                alert('Query failed: ' + e.message);
+            }
+        }
+
+        // Display query results
+        function displayResults(data) {
+            const results = document.getElementById('query-results');
+            const count = document.getElementById('results-count');
+            const table = document.getElementById('results-table');
+
+            if (data.rows.length === 0) {
+                results.style.display = 'block';
+                count.textContent = 'No results';
+                table.innerHTML = '';
+                return;
+            }
+
+            results.style.display = 'block';
+            count.textContent = `Results (${data.rows.length} rows)`;
+
+            const thead = table.querySelector('thead tr');
+            const tbody = table.querySelector('tbody');
+
+            thead.innerHTML = data.columns.map(c => `<th>${c}</th>`).join('');
+            tbody.innerHTML = data.rows.map(row => `
+                <tr>${data.columns.map(c => `<td>${row[c] || ''}</td>`).join('')}</tr>
+            `).join('');
+        }
+
+        // View table
+        function viewTable(name) {
+            document.getElementById('query-table').value = name;
+            document.getElementById('query-where').value = '';
+            document.getElementById('query-limit').value = '10';
+            updateQueryPreview();
+            runQuery();
+        }
+
+        // Clear query
+        function clearQuery() {
+            document.getElementById('query-table').value = '';
+            document.getElementById('query-columns').value = '*';
+            document.getElementById('query-where').value = '';
+            document.getElementById('query-limit').value = '10';
+            updateQueryPreview();
+            document.getElementById('query-results').style.display = 'none';
+        }
+
+        // Event listeners
+        document.getElementById('query-table').addEventListener('change', updateQueryPreview);
+        document.getElementById('query-columns').addEventListener('input', updateQueryPreview);
+        document.getElementById('query-where').addEventListener('input', updateQueryPreview);
+        document.getElementById('query-limit').addEventListener('input', updateQueryPreview);
+
+        // Initialize
+        loadTables();
+        loadStorage();
+        updateQueryPreview();
+    </script>
+</body>
+</html>

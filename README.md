@@ -1,5 +1,9 @@
 # dbbasic-tsv: The Anti-Oracle Database
 
+<div align="center">
+  <img src="https://dbbasic.com/static/images/tsv_honeybadger.png" alt="TSV Honey Badger" width="200">
+</div>
+
 [![Tests](https://github.com/askrobots/dbbasic-tsv/actions/workflows/tests.yml/badge.svg)](https://github.com/askrobots/dbbasic-tsv/actions/workflows/tests.yml)
 [![PyPI version](https://badge.fury.io/py/dbbasic-tsv.svg)](https://badge.fury.io/py/dbbasic-tsv)
 [![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
