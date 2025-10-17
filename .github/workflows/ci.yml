@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
 
     steps:
     - uses: actions/checkout@v3
@@ -54,7 +54,7 @@ jobs:
 
     - name: Run linting
       run: |
-        flake8 dbbasic/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 dbbasic/ templates/ --count --select=E9,F63,F7,F82 --show-source --statistics
         black --check dbbasic/
         isort --check-only dbbasic/
 

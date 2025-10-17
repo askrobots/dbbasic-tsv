@@ -6,7 +6,7 @@
 
 [![Tests](https://github.com/askrobots/dbbasic-tsv/actions/workflows/tests.yml/badge.svg)](https://github.com/askrobots/dbbasic-tsv/actions/workflows/tests.yml)
 [![PyPI version](https://badge.fury.io/py/dbbasic-tsv.svg)](https://badge.fury.io/py/dbbasic-tsv)
-[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A blazing-fast TSV (Tab-Separated Values) database that achieves 600,000+ inserts/second with optional Rust acceleration, while keeping your data in human-readable text files.
