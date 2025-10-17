@@ -550,12 +550,12 @@ class TSV:
 
 
 def test_simple_tsv():
-    """Test SimpleTSV database"""
-    print("Testing SimpleTSV Database")
+    """Test TSV database"""
+    print("Testing TSV Database")
     print("=" * 50)
 
     # Create test database
-    db = SimpleTSV("test_simple", ["id", "name", "email", "age", "active"])
+    db = TSV("test_simple", ["id", "name", "email", "age", "active"])
 
     # Test 1: Insert
     print("\n1. Testing Insert:")
@@ -607,14 +607,14 @@ def test_simple_tsv():
 
 
 def benchmark_simple():
-    """Benchmark SimpleTSV performance"""
+    """Benchmark TSV performance"""
     import random
     import string
 
-    print("SimpleTSV Performance Benchmark")
+    print("TSV Performance Benchmark")
     print("=" * 50)
 
-    db = SimpleTSV("benchmark", ["id", "name", "email", "age", "city"])
+    db = TSV("benchmark", ["id", "name", "email", "age", "city"])
 
     def random_string(length=10):
         return ''.join(random.choices(string.ascii_letters, k=length))
