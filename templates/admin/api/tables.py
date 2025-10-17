@@ -4,7 +4,6 @@ Returns list of all TSV tables with metadata
 """
 
 import json
-import os
 from pathlib import Path
 
 
