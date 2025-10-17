@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dbbasic-tsv"
-version = "1.0.1"
+version = "1.0.2"
 description = "A pure-Python, filesystem-based database using TSV files"
 readme = "README.md"
 requires-python = ">=3.7"
